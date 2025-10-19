@@ -19,13 +19,16 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logo-bizot-paysagistes.png">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -52,16 +55,6 @@
             scroll-behavior: smooth;
         }
         
-        /* Smooth animations */
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         /* Filter button active state */
         .filter-btn.active {
             background-color: #386D56;
@@ -73,11 +66,11 @@
 
     <!-- Header / Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-        <nav class="container mx-auto px-5 lg:px-20">
+        <nav class="container mx-auto px-5 lg:px-20" x-data="{ mobileMenuOpen: false }">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-3">
-                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes Logo" class="h-12 w-auto">
+                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes Logo" class="h-12 w-auto" loading="lazy">
                     <span class="text-xl font-bold text-brandDark hidden sm:inline">Bizot Paysagistes</span>
                 </a>
                 
@@ -93,7 +86,8 @@
                 </div>
                 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-textColor hover:text-brandDark">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-textColor hover:text-brandDark">
+                    <!-- Heroicon: menu -->
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -101,7 +95,14 @@
             </div>
             
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform scale-100"
+                 x-transition:leave-end="opacity-0 transform scale-95"
+                 class="md:hidden pb-4">
                 <div class="flex flex-col space-y-3">
                     <a href="index.html" class="text-textColor hover:text-brandDark transition-colors font-medium py-2">Accueil</a>
                     <a href="services.html" class="text-textColor hover:text-brandDark transition-colors font-medium py-2">Services</a>
@@ -118,7 +119,7 @@
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-brandLight/30 to-white">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="max-w-4xl mx-auto text-center fade-in">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="inline-block bg-brandDark/10 text-brandDark px-4 py-2 rounded-full text-sm font-semibold mb-6">
                     🌿 Notre Portfolio
                 </div>
@@ -136,7 +137,7 @@
     <!-- Stats Section -->
     <section id="stats-section" class="py-16 bg-white border-b border-gray-100">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8" data-aos="fade-up">
                 <div class="text-center">
                     <div class="text-4xl md:text-5xl font-bold text-brand mb-2">
                         <span id="stats-projects-count">0</span>+
@@ -401,7 +402,7 @@
     <!-- Testimonials Section -->
     <section class="py-24 bg-gradient-to-br from-brand to-brandDark text-white">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">
                     Ce Que Disent Nos Clients
                 </h2>
@@ -465,7 +466,7 @@
     <!-- CTA Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="max-w-4xl mx-auto text-center">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-textColor mb-6">
                     Envie de Réaliser Votre Projet ?
                 </h2>
@@ -490,7 +491,11 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <!-- Company Info -->
                 <div>
-                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes" class="h-12 mb-4 brightness-0 invert">
+                    <img src="assets/logo-bizot-paysagistes.png" 
+                         srcset="assets/logo-bizot-paysagistes.png 1x"
+                         alt="Bizot Paysagistes" 
+                         class="h-12 mb-4 brightness-0 invert"
+                         loading="lazy">
                     <p class="text-gray-400 text-sm leading-relaxed">
                         Expert en aménagement paysager depuis plus de 40 ans en Île-de-France.
                     </p>
@@ -542,8 +547,20 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            easing: 'ease-in-out'
+        });
+        
         // Counter Animation Function
         function animateCount(id, end, duration, decimals = 0) {
             const el = document.getElementById(id);
@@ -592,19 +609,6 @@
             
             window.addEventListener('scroll', checkStatsVisibility);
             checkStatsVisibility(); // Check on page load
-        });
-        
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
         });
 
         // Portfolio Filter

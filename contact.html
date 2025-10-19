@@ -19,13 +19,16 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logo-bizot-paysagistes.png">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -51,26 +54,17 @@
         html {
             scroll-behavior: smooth;
         }
-        
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body class="font-sans antialiased text-textColor bg-bgColor">
 
     <!-- Header / Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-        <nav class="container mx-auto px-5 lg:px-20">
+        <nav class="container mx-auto px-5 lg:px-20" x-data="{ mobileMenuOpen: false }">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-3">
-                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes Logo" class="h-12 w-auto">
+                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes Logo" class="h-12 w-auto" loading="lazy">
                     <span class="text-xl font-bold text-brandDark hidden sm:inline">Bizot Paysagistes</span>
                 </a>
                 
@@ -86,7 +80,8 @@
                 </div>
                 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-textColor hover:text-brandDark">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-textColor hover:text-brandDark">
+                    <!-- Heroicon: menu -->
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -94,7 +89,14 @@
             </div>
             
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform scale-100"
+                 x-transition:leave-end="opacity-0 transform scale-95"
+                 class="md:hidden pb-4">
                 <div class="flex flex-col space-y-3">
                     <a href="index.html" class="text-textColor hover:text-brandDark transition-colors font-medium py-2">Accueil</a>
                     <a href="services.html" class="text-textColor hover:text-brandDark transition-colors font-medium py-2">Services</a>
@@ -111,7 +113,7 @@
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-brandLight/30 to-white">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="max-w-4xl mx-auto text-center fade-in">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="inline-block bg-brandDark/10 text-brandDark px-4 py-2 rounded-full text-sm font-semibold mb-6">
                     📞 Réponse Sous 24h
                 </div>
@@ -131,7 +133,7 @@
         <div class="container mx-auto px-5 lg:px-20">
             <div class="grid lg:grid-cols-5 gap-12">
                 <!-- Contact Form - 3 columns -->
-                <div class="lg:col-span-3">
+                <div class="lg:col-span-3" data-aos="fade-right">
                     <div class="bg-white p-8 md:p-10 rounded-2xl shadow-lg border border-gray-100">
                         <h2 class="text-3xl font-bold text-textColor mb-6">Demande de Devis</h2>
                         <p class="text-gray-600 mb-8">
@@ -285,7 +287,7 @@
                 </div>
                 
                 <!-- Contact Info Sidebar - 2 columns -->
-                <div class="lg:col-span-2 space-y-6">
+                <div class="lg:col-span-2 space-y-6" data-aos="fade-left">
                     <!-- Contact Cards -->
                     <div class="bg-gradient-to-br from-brand to-brandDark text-white p-8 rounded-2xl shadow-lg">
                         <h3 class="text-2xl font-bold mb-6">Coordonnées</h3>
@@ -380,7 +382,7 @@
     <!-- FAQ Section -->
     <section class="py-24 bg-gray-50">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-textColor mb-6">
                     Questions Fréquentes
                 </h2>
@@ -391,7 +393,7 @@
             
             <div class="max-w-4xl mx-auto space-y-4">
                 <!-- FAQ Item 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="text-lg font-bold text-textColor mb-3">💰 Les devis sont-ils gratuits ?</h3>
                     <p class="text-gray-600">
                         Oui, tous nos devis sont entièrement gratuits et sans engagement. Nous nous déplaçons 
@@ -400,7 +402,7 @@
                 </div>
                 
                 <!-- FAQ Item 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="200">
                     <h3 class="text-lg font-bold text-textColor mb-3">⏱️ Quels sont vos délais d'intervention ?</h3>
                     <p class="text-gray-600">
                         Les délais varient selon la nature et l'ampleur du projet. Pour l'entretien courant, 
@@ -410,7 +412,7 @@
                 </div>
                 
                 <!-- FAQ Item 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="300">
                     <h3 class="text-lg font-bold text-textColor mb-3">📍 Intervenez-vous dans ma ville ?</h3>
                     <p class="text-gray-600">
                         Nous intervenons principalement en Essonne (91), Hauts-de-Seine (92), Yvelines (78) et à Paris. 
@@ -419,7 +421,7 @@
                 </div>
                 
                 <!-- FAQ Item 4 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="text-lg font-bold text-textColor mb-3">🏆 Êtes-vous certifiés et assurés ?</h3>
                     <p class="text-gray-600">
                         Oui, nous disposons des certifications Qualipaysage et CS Taille et Soins aux Arbres. 
@@ -429,7 +431,7 @@
                 </div>
                 
                 <!-- FAQ Item 5 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up" data-aos-delay="200">
                     <h3 class="text-lg font-bold text-textColor mb-3">💳 Quels sont vos modes de paiement ?</h3>
                     <p class="text-gray-600">
                         Nous acceptons les paiements par chèque, virement bancaire et espèces. Pour les particuliers, 
@@ -446,7 +448,11 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <!-- Company Info -->
                 <div>
-                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes" class="h-12 mb-4 brightness-0 invert">
+                    <img src="assets/logo-bizot-paysagistes.png" 
+                         srcset="assets/logo-bizot-paysagistes.png 1x"
+                         alt="Bizot Paysagistes" 
+                         class="h-12 mb-4 brightness-0 invert"
+                         loading="lazy">
                     <p class="text-gray-400 text-sm leading-relaxed">
                         Expert en aménagement paysager depuis plus de 40 ans en Île-de-France.
                     </p>
@@ -498,19 +504,18 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            easing: 'ease-in-out'
         });
         
         // Form Submission Handler (placeholder)

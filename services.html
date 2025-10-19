@@ -17,13 +17,16 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logo-bizot-paysagistes.png">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -49,27 +52,17 @@
         html {
             scroll-behavior: smooth;
         }
-        
-        /* Smooth animations */
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body class="font-sans antialiased text-textColor bg-bgColor">
 
     <!-- Header / Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-        <nav class="container mx-auto px-5 lg:px-20">
+        <nav class="container mx-auto px-5 lg:px-20" x-data="{ mobileMenuOpen: false }">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-3">
-                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes Logo" class="h-12 w-auto">
+                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes Logo" class="h-12 w-auto" loading="lazy">
                     <span class="text-xl font-bold text-brandDark hidden sm:inline">Bizot Paysagistes</span>
                 </a>
                 
@@ -85,7 +78,8 @@
                 </div>
                 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-textColor hover:text-brandDark">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-textColor hover:text-brandDark">
+                    <!-- Heroicon: menu -->
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -93,7 +87,14 @@
             </div>
             
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform scale-100"
+                 x-transition:leave-end="opacity-0 transform scale-95"
+                 class="md:hidden pb-4">
                 <div class="flex flex-col space-y-3">
                     <a href="index.html" class="text-textColor hover:text-brandDark transition-colors font-medium py-2">Accueil</a>
                     <a href="services.html" class="text-brandDark font-semibold py-2">Services</a>
@@ -110,7 +111,7 @@
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-emerald-50 to-white">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="max-w-4xl mx-auto text-center fade-in">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <div class="inline-block bg-brandDark/10 text-brandDark px-4 py-2 rounded-full text-sm font-semibold mb-6">
                     🌿 Nos Expertises
                 </div>
@@ -128,7 +129,7 @@
     <!-- Services Overview -->
     <section class="py-16 bg-white border-b border-gray-100">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-8" data-aos="fade-up">
                 <a href="#conception" class="group text-center p-6 rounded-xl hover:bg-brandLight/30 transition-all">
                     <div class="text-5xl mb-4">🎨</div>
                     <h3 class="text-xl font-bold text-textColor mb-2 group-hover:text-brandDark transition-colors">Conception & Création</h3>
@@ -153,7 +154,7 @@
         <div class="container mx-auto px-5 lg:px-20">
             <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
                 <!-- Image -->
-                <div class="order-2 md:order-1">
+                <div class="order-2 md:order-1" data-aos="fade-right">
                     <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-brand/20 to-emerald-200/30 shadow-xl overflow-hidden">
                         <div class="w-full h-full flex items-center justify-center text-brand/30 text-6xl font-bold">
                             🎨
@@ -290,7 +291,7 @@
         <div class="container mx-auto px-5 lg:px-20">
             <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
                 <!-- Content -->
-                <div>
+                <div data-aos="fade-right">
                     <div class="inline-block bg-brandDark/10 text-brandDark px-4 py-2 rounded-full text-sm font-semibold mb-4">
                         Service #2
                     </div>
@@ -311,7 +312,7 @@
                 </div>
                 
                 <!-- Image -->
-                <div>
+                <div data-aos="fade-left">
                     <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-accent/20 to-orange-200/30 shadow-xl overflow-hidden">
                         <div class="w-full h-full flex items-center justify-center text-accent/30 text-6xl font-bold">
                             🌿
@@ -321,7 +322,7 @@
             </div>
             
             <!-- Detailed Services -->
-            <div class="bg-gray-50 rounded-2xl p-8 md:p-12 shadow-lg">
+            <div class="bg-gray-50 rounded-2xl p-8 md:p-12 shadow-lg" data-aos="fade-up">
                 <h3 class="text-2xl md:text-3xl font-bold text-textColor mb-8 text-center">
                     Nos Prestations en Entretien d'Espaces Verts
                 </h3>
@@ -467,7 +468,7 @@
         <div class="container mx-auto px-5 lg:px-20">
             <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
                 <!-- Image -->
-                <div class="order-2 md:order-1">
+                <div class="order-2 md:order-1" data-aos="fade-right">
                     <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-brand/20 to-brandLight/40 shadow-xl overflow-hidden">
                         <div class="w-full h-full flex items-center justify-center text-brand/30 text-6xl font-bold">
                             🌲
@@ -476,7 +477,7 @@
                 </div>
                 
                 <!-- Content -->
-                <div class="order-1 md:order-2">
+                <div class="order-1 md:order-2" data-aos="fade-left">
                     <div class="inline-block bg-brandDark/10 text-brandDark px-4 py-2 rounded-full text-sm font-semibold mb-4">
                         Service #3
                     </div>
@@ -494,8 +495,10 @@
                     <div class="bg-brandLight/40 border-l-4 border-brandDark p-4 rounded mb-8">
                         <div class="flex items-start gap-3">
                             <img src="assets/logo-certificat-de-specialisation-taille-et-soins-aux-arbres.png" 
+                                 srcset="assets/logo-certificat-de-specialisation-taille-et-soins-aux-arbres.png 1x"
                                  alt="Certification CS Taille et Soins aux Arbres" 
-                                 class="h-12 opacity-80">
+                                 class="h-12 opacity-80"
+                                 loading="lazy">
                             <div>
                                 <p class="font-semibold text-textColor">Certification Professionnelle</p>
                                 <p class="text-sm text-gray-600">CS Taille et Soins aux Arbres</p>
@@ -509,7 +512,7 @@
             </div>
             
             <!-- Detailed Services -->
-            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-lg" data-aos="fade-up">
                 <h3 class="text-2xl md:text-3xl font-bold text-textColor mb-8 text-center">
                     Nos Prestations en Élagage & Soins aux Arbres
                 </h3>
@@ -635,7 +638,7 @@
     <!-- Why Choose Us -->
     <section class="py-24 bg-gradient-to-br from-brand to-brandDark text-white">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="max-w-4xl mx-auto text-center mb-12">
+            <div class="max-w-4xl mx-auto text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">
                     Pourquoi Choisir Bizot Paysagistes ?
                 </h2>
@@ -672,7 +675,7 @@
     <!-- CTA Section -->
     <section class="py-20 bg-white">
         <div class="container mx-auto px-5 lg:px-20">
-            <div class="max-w-4xl mx-auto text-center">
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-textColor mb-6">
                     Prêt à Démarrer Votre Projet ?
                 </h2>
@@ -697,7 +700,11 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <!-- Company Info -->
                 <div>
-                    <img src="assets/logo-bizot-paysagistes.png" alt="Bizot Paysagistes" class="h-12 mb-4 brightness-0 invert">
+                    <img src="assets/logo-bizot-paysagistes.png" 
+                         srcset="assets/logo-bizot-paysagistes.png 1x"
+                         alt="Bizot Paysagistes" 
+                         class="h-12 mb-4 brightness-0 invert"
+                         loading="lazy">
                     <p class="text-gray-400 text-sm leading-relaxed">
                         Expert en aménagement paysager depuis plus de 40 ans en Île-de-France.
                     </p>
@@ -749,18 +756,18 @@
         </div>
     </footer>
 
-    <!-- Mobile Menu Toggle Script -->
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            easing: 'ease-in-out'
         });
     </script>
 </body>
